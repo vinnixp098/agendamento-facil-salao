@@ -1,0 +1,22 @@
+PALETA DE CORES - LUMIEN APP
+=======================================================
+
+background      #F5F0E8
+dark1           #4A4035
+dark2           #3D3535
+gradientStart   #D4A5A5
+gradientEnd     #C4855A
+accent1         #7A9E87
+accent2         #C9A84C
+light1          #FAFAFA
+white           #FFFFFF
+shadow          rgba(74, 64, 53, 0.15)
+
+-------------------------------------------------------
+STATUS
+-------------------------------------------------------
+
+statusAndamento   #7A9E87
+statusAgendado    #C9A84C
+statusFinalizado  #C4855A
+statusCancelado   #C0392B

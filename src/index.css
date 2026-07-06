@@ -1,0 +1,42 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F5F0E8;
+  --dark1: #4A4035;
+  --dark2: #3D3535;
+  --grad-start: #D4A5A5;
+  --grad-end: #C4855A;
+  --accent1: #7A9E87;
+  --accent2: #C9A84C;
+  --light1: #FAFAFA;
+  --white: #FFFFFF;
+  --shadow: rgba(74, 64, 53, 0.15);
+  --status-andamento: #7A9E87;
+  --status-agendado: #C9A84C;
+  --status-finalizado: #C4855A;
+  --status-cancelado: #C0392B;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--dark1);
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Evita zoom em inputs no iOS */
+@media (max-width: 600px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input, select {
+  font-family: inherit;
+}

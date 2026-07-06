@@ -1,0 +1,80 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: var(--bg);
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--light1);
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.erroEmpresa {
+  text-align: center;
+  color: var(--status-cancelado);
+  font-size: 0.95rem;
+  padding: 20px 0;
+}
+
+.erroEmpresa code {
+  font-family: monospace;
+  background: var(--shadow);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+@media (max-width: 600px) {
+  .page {
+    align-items: flex-start;
+    padding: 0;
+  }
+
+  .card {
+    border-radius: 0;
+    padding: 24px 16px;
+    box-shadow: none;
+    min-height: 100vh;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1.5px solid var(--shadow);
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  color: var(--white);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark1);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.82rem;
+  color: var(--dark2);
+  opacity: 0.7;
+  margin-top: 2px;
+}

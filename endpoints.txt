@@ -1,0 +1,41 @@
+BASE URL: https://meu-salao-digital-api.onrender.com/api/v1
+
+=======================================================
+1. CRIAR ATENDIMENTO
+=======================================================
+POST /atendimento/cadastrar
+
+Body (JSON):
+{
+  "cliente": "string",
+  "empresaId": "number",
+  "status": "string",
+  "data_agendamento": "string",
+  "valor_total": "number"
+}
+
+=======================================================
+2. ASSOCIAR SERVIÇO AO ATENDIMENTO
+=======================================================
+POST /atendimento-servico/cadastrar
+
+Body (JSON):
+{
+  "atendimentoId": "number",
+  "servicoId": "number",
+  "servicoDescricao": "string",
+  "valorTotal": "number",
+  "empresaId": "number",
+  "usuarioId": "number",
+  "usuarioNome": "string"
+}
+
+=======================================================
+3. LISTAR SERVIÇOS
+=======================================================
+GET /servico/buscar?empresaId={empresaId}
+
+=======================================================
+4. LISTAR PROFISSIONAIS (USUÁRIOS)
+=======================================================
+GET /usuario/buscar-todos?empresaId={empresaId}

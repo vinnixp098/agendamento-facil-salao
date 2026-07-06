@@ -1,0 +1,128 @@
+.calendario {
+  background: var(--white);
+  border: 1.5px solid var(--shadow);
+  border-radius: 16px;
+  padding: 16px;
+  user-select: none;
+}
+
+/* ── Header mês/ano ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.mesAno {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--dark1);
+}
+
+.navBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--dark1);
+  font-size: 1.3rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  touch-action: manipulation;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: var(--grad-end);
+  color: var(--white);
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Cabeçalho dias da semana ── */
+.diasSemana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+
+.diaSemanaLabel {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--dark2);
+  opacity: 0.5;
+  padding-bottom: 6px;
+}
+
+/* ── Grade de dias ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.diaBtn {
+  position: relative;
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--dark1);
+  font-size: 0.88rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.diaBtn:hover:not(:disabled) {
+  background: var(--bg);
+}
+
+.diaHoje {
+  border: 1.5px solid var(--grad-end);
+  color: var(--grad-end);
+  font-weight: 700;
+}
+
+.diaSelecionado {
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end)) !important;
+  color: var(--white) !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.diaLotado {
+  color: var(--dark2);
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+.diaFora {
+  opacity: 0.2;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.lotadoDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--status-cancelado);
+  position: absolute;
+  bottom: 3px;
+}

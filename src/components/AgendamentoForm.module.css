@@ -1,0 +1,301 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 90px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 360px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--shadow);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--dark1);
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  outline: none;
+  appearance: none;
+}
+
+.input:focus {
+  border-color: var(--grad-end);
+}
+
+.horariosGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.horarioBtn {
+  padding: 10px 6px;
+  border: 1.5px solid var(--shadow);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--dark1);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  touch-action: manipulation;
+}
+
+.horarioBtn:hover:not(:disabled) {
+  border-color: var(--grad-end);
+}
+
+.horarioBtnAtivo {
+  border-color: var(--grad-end);
+  background: var(--grad-end);
+  color: var(--white);
+}
+
+.horarioBtnOcupado {
+  background: var(--bg);
+  color: var(--dark2);
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* ── Seção de serviços ── */
+.sectionLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark2);
+  margin-bottom: 8px;
+}
+
+.errorMsg {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--status-cancelado);
+  margin-bottom: 8px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  border: 1.5px solid var(--shadow);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
+}
+
+.card:hover {
+  border-color: var(--grad-end);
+}
+
+.cardAtivo {
+  border-color: var(--grad-end);
+  background: #fff8f5;
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardNome {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--dark1);
+}
+
+.cardValores {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.cardValorOriginal {
+  font-size: 0.78rem;
+  color: var(--dark2);
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.cardValor {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--grad-end);
+  white-space: nowrap;
+}
+
+.cardDesc {
+  font-size: 0.8rem;
+  color: var(--dark2);
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* ── Profissionais dentro do card ── */
+.profissionalWrap {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--shadow);
+}
+
+.profissionalLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--dark2);
+  margin-bottom: 8px;
+}
+
+.profissionaisList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .profissionaisList {
+    gap: 6px;
+  }
+
+  .profBtn {
+    flex: 1 1 calc(50% - 6px);
+    text-align: center;
+  }
+}
+
+.profBtn {
+  padding: 6px 14px;
+  border: 1.5px solid var(--shadow);
+  border-radius: 20px;
+  background: var(--bg);
+  color: var(--dark1);
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.profBtn:hover {
+  border-color: var(--grad-end);
+}
+
+.profBtnAtivo {
+  border-color: var(--grad-end);
+  background: var(--grad-end);
+  color: var(--white);
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--light1);
+  padding: 12px 16px;
+  box-shadow: 0 -4px 16px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+}
+
+@media (min-width: 601px) {
+  .footer {
+    position: static;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .form {
+    padding-bottom: 0;
+  }
+}
+
+/* ── Resumo e botão ── */
+.resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  color: var(--white);
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.resumo strong {
+  font-size: 1.2rem;
+}
+
+.btn {
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 4px 14px var(--shadow);
+  width: 100%;
+  touch-action: manipulation;
+}
+
+.btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.apiError {
+  font-size: 0.85rem;
+  color: var(--status-cancelado);
+  text-align: center;
+}
+
+.loadingWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 0;
+  color: var(--dark2);
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--shadow);
+  border-top-color: var(--grad-end);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
