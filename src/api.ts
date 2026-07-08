@@ -1,4 +1,4 @@
-import type { IAtendimento, IServicoItem, IServico, IUsuario } from './types';
+import type { IAtendimento, IServicoItem, IServico, IUsuario, IDisponibilidade, IEmpresa } from './types';
 
 const BASE = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -17,6 +17,13 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 export const api = {
+
+  getDadosEmpresa: (empresaId: number) =>
+    request<IEmpresa[]>(`${BASE}/empresa/buscar?empresaId=${empresaId}`),
+
+  getDisponibilidade: (empresaId: number) =>
+    request<IDisponibilidade[]>(`${BASE}/atendimento/disponibilidade?empresaId=${empresaId}`),
+
   getServicos: (empresaId: number) =>
     request<IServico[]>(`${BASE}/servico/buscar?empresaId=${empresaId}`),
 

@@ -50,4 +50,14 @@ export interface IServicoSelecionado {
   usuarioId: number | null;
 }
 
+export interface IDisponibilidade {
+  data: string;
+  horariosDisponiveis: string[];
+}
+
+export interface IEmpresa{
+  id: string;
+  description: string;
+}
+
 export type Step = 'form' | 'success';

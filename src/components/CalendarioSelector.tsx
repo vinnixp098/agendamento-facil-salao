@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { isDiaLotado } from '../mock/horarios';
 import styles from './CalendarioSelector.module.css';
 
 interface Props {
@@ -7,6 +6,7 @@ interface Props {
   onChange: (data: string) => void;
   minData: string;
   maxData: string;
+  datasDisponiveis: string[];
 }
 
 const DIAS_SEMANA = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
@@ -19,7 +19,7 @@ function toStr(d: Date): string {
   return d.toISOString().slice(0, 10);
 }
 
-export function CalendarioSelector({ value, onChange, minData, maxData }: Props) {
+export function CalendarioSelector({ value, onChange, minData, maxData, datasDisponiveis }: Props) {
   const hoje = new Date();
   const [mes, setMes] = useState(hoje.getMonth());
   const [ano, setAno] = useState(hoje.getFullYear());
@@ -81,7 +81,7 @@ export function CalendarioSelector({ value, onChange, minData, maxData }: Props)
 
           const str = toStr(dia);
           const fora = dia < minDate || dia > maxDate;
-          const lotado = !fora && isDiaLotado(str);
+          const lotado = !fora && !datasDisponiveis.includes(str);
           const desabilitado = fora || lotado;
           const selecionado = str === value;
           const ehHoje = str === toStr(hoje);

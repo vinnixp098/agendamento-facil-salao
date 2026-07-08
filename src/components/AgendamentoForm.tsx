@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api';
 // import type { IServico, IServicoSelecionado, IUsuario } from '../types';
-import type { IServico, IUsuario } from '../types';
+import type { IServico, IUsuario, IDisponibilidade } from '../types';
 import { Field } from './Field';
 import { CalendarioSelector } from './CalendarioSelector';
-import {
-  HORARIOS_DISPONIVEIS,
-  horariosOcupadosNoDia,
-  isDiaLotado,
-  isHorarioPassado,
-  primeiroHorarioLivre,
-} from '../mock/horarios';
+import { isHorarioPassado } from '../mock/horarios';
 import styles from './AgendamentoForm.module.css';
 import { formatCurrency } from '../utils/formatereal';
 import { formatPhone } from '../utils/formatPhone';
@@ -43,13 +37,8 @@ function hojeStr() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function maxDataStr() {
-  const d = new Date();
-  d.setDate(d.getDate() + 7);
-  return d.toISOString().slice(0, 10);
-}
-
 export function AgendamentoForm({ empresaId, onSuccess }: Props) {
+  const [disponibilidade, setDisponibilidade] = useState<IDisponibilidade[]>([]);
   const [servicos, setServicos] = useState<IServico[]>([]);
   const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,11 +55,15 @@ export function AgendamentoForm({ empresaId, onSuccess }: Props) {
   // const [selecionados, setSelecionados] = useState<IServicoSelecionado[]>([]);
 
   useEffect(() => {
-    Promise.all([api.getServicos(empresaId), api.getUsuarios(empresaId)])
-      .then(([s, u]) => { setServicos(s); setUsuarios(u); })
+    Promise.all([
+      api.getDisponibilidade(empresaId),
+      api.getServicos(empresaId),
+      api.getUsuarios(empresaId),
+    ])
+      .then(([d, s, u]) => { setDisponibilidade(d); setServicos(s); setUsuarios(u); })
       .catch(() => setApiError('Erro ao carregar dados. Tente novamente.'))
       .finally(() => setLoading(false));
-  }, []);
+  }, [empresaId]);
 
   // function toggleServico(servicoId: number) {
   //   setSelecionados((prev) => {
@@ -87,12 +80,29 @@ export function AgendamentoForm({ empresaId, onSuccess }: Props) {
   //   );
   // }
 
+  function horariosDodia(data: string): string[] {
+    const dia = disponibilidade.find((d) => d.data === data);
+    if (!dia) return [];
+    // Normaliza HH:MM:SS → HH:MM e filtra horários passados
+    return dia.horariosDisponiveis
+      .map((h) => h.slice(0, 5))
+      .filter((h) => !isHorarioPassado(data, h));
+  }
+
+  function isDiaDisponivel(data: string): boolean {
+    return horariosDodia(data).length > 0;
+  }
+
+  function primeiroHorarioLivre(data: string): string {
+    return horariosDodia(data)[0] ?? '';
+  }
+
   function validate(): boolean {
     const e: Errors = {};
     if (!form.cliente.trim()) e.cliente = 'Informe o seu nome';
     if (!form.telefone.trim()) e.telefone = 'Informe o seu telefone';
     if (!form.data) e.data = 'Escolha uma data';
-    else if (isDiaLotado(form.data)) e.data = 'Este dia não tem mais horários disponíveis';
+    else if (!isDiaDisponivel(form.data)) e.data = 'Este dia não tem mais horários disponíveis';
     if (!form.hora) e.hora = 'Escolha um horário';
     // if (selecionados.length === 0) e.servicos = 'Escolha ao menos um serviço';
     setErrors(e);
@@ -115,7 +125,7 @@ export function AgendamentoForm({ empresaId, onSuccess }: Props) {
     try {
       const atendimento = await api.criarAtendimento({
         cliente: form.cliente,
-        telefone: form.telefone.replace(/\D/g, ""),
+        telefone: form.telefone.replace(/\D/g, ''),
         empresaId,
         status: 'AGENDADO',
         data_agendamento: dataAgendamento,
@@ -151,7 +161,7 @@ export function AgendamentoForm({ empresaId, onSuccess }: Props) {
     setForm((prev) => ({
       ...prev,
       data,
-      hora: primeiroHorarioLivre(data) ?? '',
+      hora: primeiroHorarioLivre(data),
     }));
     setErrors((prev) => ({ ...prev, data: undefined, hora: undefined }));
   }
@@ -177,7 +187,9 @@ export function AgendamentoForm({ empresaId, onSuccess }: Props) {
   // }, 0);
 
   const hoje = hojeStr();
-  const maxData = maxDataStr();
+  const diasDisponiveis = disponibilidade.map((d) => d.data);
+  const maxData = diasDisponiveis[diasDisponiveis.length - 1] ?? hoje;
+  const horariosHoje = horariosDodia(form.data);
 
   // Suprimir warnings de variáveis não usadas enquanto comentadas
   void servicos;
@@ -214,30 +226,29 @@ export function AgendamentoForm({ empresaId, onSuccess }: Props) {
           onChange={handleDataChange}
           minData={hoje}
           maxData={maxData}
+          datasDisponiveis={diasDisponiveis}
         />
       </Field>
 
       {form.data && (
         <Field label="Horários disponíveis" error={errors.hora}>
           <div className={styles.horariosGrid}>
-            {HORARIOS_DISPONIVEIS.map((h) => {
-              const ocupado = horariosOcupadosNoDia(form.data).includes(h) || isHorarioPassado(form.data, h);
-              const selecionado = form.hora === h;
-              return (
-                <button
-                  key={h}
-                  type="button"
-                  disabled={ocupado}
-                  className={`${styles.horarioBtn} ${selecionado ? styles.horarioBtnAtivo : ''} ${ocupado ? styles.horarioBtnOcupado : ''}`}
-                  onClick={() => {
-                    setForm((prev) => ({ ...prev, hora: h }));
-                    setErrors((prev) => ({ ...prev, hora: undefined }));
-                  }}
-                >
-                  {h}
-                </button>
-              );
-            })}
+            {horariosHoje.map((h) => (
+              <button
+                key={h}
+                type="button"
+                className={`${styles.horarioBtn} ${form.hora === h ? styles.horarioBtnAtivo : ''}`}
+                onClick={() => {
+                  setForm((prev) => ({ ...prev, hora: h }));
+                  setErrors((prev) => ({ ...prev, hora: undefined }));
+                }}
+              >
+                {h}
+              </button>
+            ))}
+            {horariosHoje.length === 0 && (
+              <p className={styles.semHorarios}>Nenhum horário disponível para este dia.</p>
+            )}
           </div>
         </Field>
       )}
