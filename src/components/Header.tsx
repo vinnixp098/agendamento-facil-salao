@@ -12,7 +12,7 @@ export function Header() {
       boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
     }}>
       <div>
-        <p style={{ color: '#D4A5A5', fontSize: 18, fontWeight: 800, letterSpacing: 1 }}>Lumien</p>
+        <img src="../public/image-logo1.png" alt="" style={{width: '80px', borderRadius: "50%"}}/>
         {user && <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11 }}>{user.nome}</p>}
       </div>
       <button

@@ -81,7 +81,7 @@ export function CadastroPage() {
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(160deg, #3D3535, #4A4035, #6B5B4E)', padding: 16 }}>
       <div style={{ width: '100%', maxWidth: 380 }}>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <p style={{ color: '#D4A5A5', fontSize: 30, fontWeight: 800 }}>Lumien</p>
+          <img src="../public/image-logo1.png" alt="" style={{width: '80px', borderRadius: "50%"}}/>
           <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>Etapa {step} de 3</p>
         </div>
 

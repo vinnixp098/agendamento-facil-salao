@@ -38,7 +38,7 @@ export function LoginPage() {
     }}>
       <div style={{ width: '100%', maxWidth: 380 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <img src="../public/image-logo.png" alt="" style={{width: '80px', borderRadius: "50%"}}/>
+          <img src="../public/image-logo1.png" alt="" style={{width: '80px', borderRadius: "50%"}}/>
           <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, marginTop: 4 }}>Gestão profissional do seu salão</p>
         </div>
         <form onSubmit={handleSubmit} style={{ background: '#fff', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 16 }}>
