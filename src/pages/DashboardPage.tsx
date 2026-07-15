@@ -84,10 +84,10 @@ export function DashboardPage() {
       ) : (
         <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
-            <KPICard title="Total" value={totalizadores.atendimentos} icon={<CalendarCheck size={22} />} />
-            <KPICard title="Em Andamento" value={totalizadores.emAndamento} icon={<TrendingUp size={22} />} accent="var(--accent1)" />
-            <KPICard title="Finalizados" value={totalizadores.finalizados} icon={<CheckCircle size={22} />} />
-            <KPICard title="Faturamento" value={formatCurrency(totalizadores.faturamento)} icon={<DollarSign size={22} />} accent="var(--accent2)" />
+            <KPICard title="Total" value={totalizadores?.atendimentos || 0} icon={<CalendarCheck size={22} />} />
+            <KPICard title="Em Andamento" value={totalizadores?.emAndamento || 0} icon={<TrendingUp size={22} />} accent="var(--accent1)" />
+            <KPICard title="Finalizados" value={totalizadores?.finalizados || 0} icon={<CheckCircle size={22} />} />
+            <KPICard title="Faturamento" value={formatCurrency(totalizadores?.faturamento || 0)} icon={<DollarSign size={22} />} accent="var(--accent2)" />
           </div>
 
           <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--dark1)', marginBottom: 12 }}>Últimos atendimentos</h2>
